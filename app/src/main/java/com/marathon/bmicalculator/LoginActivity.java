@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.marathon.bmicalculator.databinding.ActivityLoginBinding;
 
@@ -18,7 +19,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.loginBtn.setOnClickListener(v -> {
-            savePreferences(binding.nameEditText.getText().toString());
+            String name = binding.nameEditText.getText().toString();
+            if (TextUtils.isEmpty(name)) {
+                binding.nameEditText.setError("Enter your name to continue");
+                binding.nameEditText.requestFocus();
+                return;
+            }
+            savePreferences(name);
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
             finish();
