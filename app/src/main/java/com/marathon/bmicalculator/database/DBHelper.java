@@ -59,6 +59,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
             database.insert(TABLE_NAME, null, contentValues);
         } catch (Exception e) {
+            e.printStackTrace();
             Log.e("INSERT", "saveHistory: "+ e.getMessage());
             return false;
         }
@@ -66,10 +67,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public List<BodyMassIndex> fetchData() {
-        Log.d("ENTRY", "fetchData: getting called");
         List<BodyMassIndex> bmi = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
-
         try  {
             Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME, null);
             cursor.moveToFirst();
@@ -88,9 +87,9 @@ public class DBHelper extends SQLiteOpenHelper {
             cursor.close();
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("FETCH EXCEPTION", "fetchData: " + e.getMessage());
+            Log.e("FETCH EXCEPTION", "fetchData: " + e.getMessage());
+            return null;
         }
-        Log.d("LIST SIZE", "fetchData: " + bmi.size());
         return bmi;
     }
 }

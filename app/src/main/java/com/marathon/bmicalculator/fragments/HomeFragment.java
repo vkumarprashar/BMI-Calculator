@@ -89,10 +89,11 @@ public class HomeFragment extends Fragment {
             bmi.setResult(result);
             resultTextView.setText(result);
 
-
             String gender = spinner.getSelectedItem().toString();
             bmi.setGender(gender);
             saveBtn.setVisibility(View.VISIBLE);
+
+            //Hide keyboard code
             try{
                 InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
@@ -113,11 +114,19 @@ public class HomeFragment extends Fragment {
         return fragmentView;
     }
 
+    /**
+     * Calculate BMI Method
+     * @param weight
+     * @param height
+     * @return
+     */
     private float calculateBMI ( float weight, float height){
         return (float) (weight / (height * height));
     }
 
-    // Interpret what BMI means
+    /**
+     * Interpret what BMI means
+      */
     private String interpretBMI ( float bmiValue){
 
         if (bmiValue < 16) {

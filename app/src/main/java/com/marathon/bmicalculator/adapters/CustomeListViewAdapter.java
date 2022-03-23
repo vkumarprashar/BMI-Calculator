@@ -17,13 +17,9 @@ public class CustomeListViewAdapter extends BaseAdapter {
     Activity activity;
     List<BodyMassIndex> list;
 
-    public CustomeListViewAdapter(){
-
-    }
     public CustomeListViewAdapter(Activity activity, List<BodyMassIndex> list) {
         this.activity = activity;
         this.list = list;
-        Log.d("LIST SIZE", "CustomeListViewAdapter: " + this.list.size());
     }
 
     @Override

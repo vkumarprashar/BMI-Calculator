@@ -42,10 +42,12 @@ public class HistoryFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Method to get the shared preferences details
+     */
     private void getNameFromPreferences() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         String name = sharedPreferences.getString("Name", "Owner");
         textView.setText("Hello," + name + ". Check your history!");
-
     }
 }

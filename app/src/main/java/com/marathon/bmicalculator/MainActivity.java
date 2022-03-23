@@ -19,6 +19,7 @@ import com.marathon.bmicalculator.fragments.HomeFragment;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +37,11 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
         checkPreferences();
-
-
     }
 
+    /**
+     * Method to check preferences
+     */
     private void checkPreferences() {
         SharedPreferences preferences = getSharedPreferences("LoginDetails", MODE_PRIVATE);
         String name  = preferences.getString("Name", null);
@@ -52,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to call different fragments
+     * @param fragment
+     */
     private void callFragment(Fragment fragment) {
         FragmentManager fm  = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();

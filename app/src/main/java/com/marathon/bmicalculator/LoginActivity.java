@@ -20,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
 
         binding.loginBtn.setOnClickListener(v -> {
             String name = binding.nameEditText.getText().toString();
+            //Through error in EditText if empty
             if (TextUtils.isEmpty(name)) {
                 binding.nameEditText.setError("Enter your name to continue");
                 binding.nameEditText.requestFocus();
@@ -32,6 +33,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method to store the name in the share preferences
+     * @param name
+     */
     private void savePreferences(String name) {
         SharedPreferences preferences = getSharedPreferences("LoginDetails", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
