@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.HistoryFragment"
+    android:scrollbars="vertical">
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15sp"
+        android:layout_marginLeft="15sp"
+        android:orientation="vertical">
+       <TextView
+           android:id="@+id/initializeNameTextView"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="18sp"
+           android:textColor="#6a6e64"
+           android:layout_marginTop="10sp"
+           />
+        <ListView
+            android:id="@+id/listViewHistory"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:dividerHeight="15sp"
+            android:divider="#00000000"
+            />
+    </LinearLayout>
+</FrameLayout>
