@@ -86,5 +86,16 @@
             android:textColor="@color/black"
             android:textSize="24sp"/>
 
+        <Button
+            android:id="@+id/saveHistoryBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30sp"
+            android:text="Save into History!"
+            android:visibility="gone"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textColor="@color/black" />
     </LinearLayout>
 </FrameLayout>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,20 +19,16 @@ import android.widget.Toast;
 import com.marathon.bmicalculator.R;
 import com.marathon.bmicalculator.database.DBHelper;
 import com.marathon.bmicalculator.databinding.FragmentHomeBinding;
+import com.marathon.bmicalculator.models.BodyMassIndex;
 import com.marathon.bmicalculator.models.Gender;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment {
 
-    Button button;
+    Button button, saveBtn;
     EditText heightEditText, weightEditText;
     TextView resultTextView;
     Spinner spinner;
@@ -54,18 +51,15 @@ public class HomeFragment extends Fragment {
         weightEditText = fragmentView.findViewById(R.id.weightEditText);
         resultTextView = fragmentView.findViewById(R.id.resultTextView);
         spinner = fragmentView.findViewById(R.id.genderSpinner);
+        saveBtn = fragmentView.findViewById(R.id.saveHistoryBtn);
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, Arrays.asList(Gender.values()));
         spinner.setAdapter(arrayAdapter);
 
+        BodyMassIndex bmi = new BodyMassIndex();
         button.setOnClickListener(v -> {
             String str1 = heightEditText.getText().toString();
             String str2 = weightEditText.getText().toString();
-            if (TextUtils.isEmpty(str1)) {
-                heightEditText.setError("Please enter your weight");
-                heightEditText.requestFocus();
-                return;
-            }
 
             if (TextUtils.isEmpty(str2)) {
                 weightEditText.setError("Please enter your weight");
@@ -73,9 +67,16 @@ public class HomeFragment extends Fragment {
                 return;
             }
 
-            float weight = Float.parseFloat(str2);
-            float height = Float.parseFloat(str1) / 100;
+            if (TextUtils.isEmpty(str1)) {
+                heightEditText.setError("Please enter your Height");
+                heightEditText.requestFocus();
+                return;
+            }
 
+            float height = Float.parseFloat(str1) / 100;
+            bmi.setHeight(str1);
+            float weight = Float.parseFloat(str2);
+            bmi.setWeight(str2);
             //Calculate BMI value
             float bmiValue = calculateBMI(weight, height);
 
@@ -83,17 +84,24 @@ public class HomeFragment extends Fragment {
             String bmiInterpretation = interpretBMI(bmiValue);
 
             String result = bmiValue + " - " + bmiInterpretation;
+            bmi.setResult(result);
             resultTextView.setText(result);
 
-            String gender = spinner.getSelectedItem().toString();
 
-            boolean check = dbHelper.saveHistory(gender, str1, str2, result);
+            String gender = spinner.getSelectedItem().toString();
+            bmi.setGender(gender);
+            saveBtn.setVisibility(View.VISIBLE);
+
+        });
+
+        saveBtn.setOnClickListener(v -> {
+            Log.d("Save Btn", "onCreateView: Gender: " + bmi.getGender());
+            boolean check = dbHelper.saveHistory(bmi.getGender(), bmi.getHeight(), bmi.getWeight(), bmi.getResult());
             if (check) {
                 Toast.makeText(getContext(), "VALUE IS TRUE, HENCE SAVED", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getContext(), "VALUE IS FALSE, HENCE SIYAPA", Toast.LENGTH_SHORT).show();
             }
-
         });
         return fragmentView;
     }

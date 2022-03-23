@@ -7,6 +7,9 @@ public class BodyMassIndex {
     private String gender;
     private String result;
 
+    public BodyMassIndex() {
+
+    }
     public BodyMassIndex(String height, String weight, String dateTime, String gender, String result) {
         this.height = height;
         this.weight = weight;
