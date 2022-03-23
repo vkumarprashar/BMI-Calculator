@@ -105,9 +105,9 @@ public class HomeFragment extends Fragment {
             Log.d("Save Btn", "onCreateView: Gender: " + bmi.getGender());
             boolean check = dbHelper.saveHistory(bmi.getGender(), bmi.getHeight(), bmi.getWeight(), bmi.getResult());
             if (check) {
-                Toast.makeText(getContext(), "VALUE IS TRUE, HENCE SAVED", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "History Saved!", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getContext(), "VALUE IS FALSE, HENCE SIYAPA", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error!, Contact Support!", Toast.LENGTH_SHORT).show();
             }
         });
         return fragmentView;
